@@ -1,1 +1,1 @@
-/home/sagar/Workspace/snooker/ball-detection/CMakeFiles/test.dir
+/home/sagar/Workspace/snooker/ball-detection/CMakeFiles/detectBall.dir

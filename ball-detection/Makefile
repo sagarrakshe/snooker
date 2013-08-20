@@ -99,41 +99,41 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test
+# Target rules for targets named detectBall
 
 # Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test
-.PHONY : test
+detectBall: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 detectBall
+.PHONY : detectBall
 
 # fast build rule for target.
-test/fast:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
+detectBall/fast:
+	$(MAKE) -f CMakeFiles/detectBall.dir/build.make CMakeFiles/detectBall.dir/build
+.PHONY : detectBall/fast
 
-test.o: test.cpp.o
-.PHONY : test.o
+detectBall.o: detectBall.cpp.o
+.PHONY : detectBall.o
 
 # target to build an object file
-test.cpp.o:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test.cpp.o
-.PHONY : test.cpp.o
+detectBall.cpp.o:
+	$(MAKE) -f CMakeFiles/detectBall.dir/build.make CMakeFiles/detectBall.dir/detectBall.cpp.o
+.PHONY : detectBall.cpp.o
 
-test.i: test.cpp.i
-.PHONY : test.i
+detectBall.i: detectBall.cpp.i
+.PHONY : detectBall.i
 
 # target to preprocess a source file
-test.cpp.i:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test.cpp.i
-.PHONY : test.cpp.i
+detectBall.cpp.i:
+	$(MAKE) -f CMakeFiles/detectBall.dir/build.make CMakeFiles/detectBall.dir/detectBall.cpp.i
+.PHONY : detectBall.cpp.i
 
-test.s: test.cpp.s
-.PHONY : test.s
+detectBall.s: detectBall.cpp.s
+.PHONY : detectBall.s
 
 # target to generate assembly for a file
-test.cpp.s:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test.cpp.s
-.PHONY : test.cpp.s
+detectBall.cpp.s:
+	$(MAKE) -f CMakeFiles/detectBall.dir/build.make CMakeFiles/detectBall.dir/detectBall.cpp.s
+.PHONY : detectBall.cpp.s
 
 # Help Target
 help:
@@ -141,12 +141,12 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... detectBall"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... test"
-	@echo "... test.o"
-	@echo "... test.i"
-	@echo "... test.s"
+	@echo "... detectBall.o"
+	@echo "... detectBall.i"
+	@echo "... detectBall.s"
 .PHONY : help
 
 

@@ -116,7 +116,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=test
+CMAKE_PROJECT_NAME:STATIC=detectBall
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -173,10 +173,10 @@ OpenCV_LIB_DIR_DBG:PATH=/usr/local/lib
 OpenCV_LIB_DIR_OPT:PATH=/usr/local/lib
 
 //Value Computed by CMake
-test_BINARY_DIR:STATIC=/home/sagar/Workspace/snooker/ball-detection
+detectBall_BINARY_DIR:STATIC=/home/sagar/Workspace/snooker/ball-detection
 
 //Value Computed by CMake
-test_SOURCE_DIR:STATIC=/home/sagar/Workspace/snooker/ball-detection
+detectBall_SOURCE_DIR:STATIC=/home/sagar/Workspace/snooker/ball-detection
 
 
 ########################

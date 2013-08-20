@@ -53,38 +53,38 @@ CMAKE_SOURCE_DIR = /home/sagar/Workspace/snooker/ball-detection
 CMAKE_BINARY_DIR = /home/sagar/Workspace/snooker/ball-detection
 
 #=============================================================================
-# Target rules for target CMakeFiles/test.dir
+# Target rules for target CMakeFiles/detectBall.dir
 
 # All Build rule for target.
-CMakeFiles/test.dir/all:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/depend
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
+CMakeFiles/detectBall.dir/all:
+	$(MAKE) -f CMakeFiles/detectBall.dir/build.make CMakeFiles/detectBall.dir/depend
+	$(MAKE) -f CMakeFiles/detectBall.dir/build.make CMakeFiles/detectBall.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/sagar/Workspace/snooker/ball-detection/CMakeFiles  1
-	@echo "Built target test"
-.PHONY : CMakeFiles/test.dir/all
+	@echo "Built target detectBall"
+.PHONY : CMakeFiles/detectBall.dir/all
 
 # Include target in all.
-all: CMakeFiles/test.dir/all
+all: CMakeFiles/detectBall.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/test.dir/rule: cmake_check_build_system
+CMakeFiles/detectBall.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/sagar/Workspace/snooker/ball-detection/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/detectBall.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/sagar/Workspace/snooker/ball-detection/CMakeFiles 0
-.PHONY : CMakeFiles/test.dir/rule
+.PHONY : CMakeFiles/detectBall.dir/rule
 
 # Convenience name for target.
-test: CMakeFiles/test.dir/rule
-.PHONY : test
+detectBall: CMakeFiles/detectBall.dir/rule
+.PHONY : detectBall
 
 # clean rule for target.
-CMakeFiles/test.dir/clean:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/clean
-.PHONY : CMakeFiles/test.dir/clean
+CMakeFiles/detectBall.dir/clean:
+	$(MAKE) -f CMakeFiles/detectBall.dir/build.make CMakeFiles/detectBall.dir/clean
+.PHONY : CMakeFiles/detectBall.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/test.dir/clean
+clean: CMakeFiles/detectBall.dir/clean
 .PHONY : clean
 
 #=============================================================================
