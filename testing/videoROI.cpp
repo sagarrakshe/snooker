@@ -17,7 +17,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    string filename = "/home/sagar/Sagar/videos/Others/dropon.webm";
+    string filename = "video.avi";
     VideoCapture capture(filename);
 
     Mat frame;
