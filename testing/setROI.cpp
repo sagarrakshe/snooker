@@ -17,15 +17,22 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    IplImage *src;
+    // IplImage *src;
 
-    src = cvLoadImage(argv[1]);
-    cvSetImageROI(src, cvRect(150,150,100,100))  ;
-    cvAddS(src, cvScalar(25,2,255), src);
-    cvResetImageROI(src);
-    
+    // src = cvLoadImage(argv[1]);
+    // cvSetImageROI(src, cvRect(150,150,100,100))  ;
+    // cvAddS(src, cvScalar(255), src);
+    // cvResetImageROI(src);
+    // 
+    // namedWindow("Testing Window", 1);
+    // cvShowImage("Testing Window", src);
+
+    Mat src;
+    src = imread(argv[1]);
+    Mat subImage = src(cvRect(150,150,100,100));
     namedWindow("Testing Window", 1);
-    cvShowImage("Testing Window", src);
+    imshow("Testing Window", subImage);
+
     waitKey(0);
 
 	return 0;
