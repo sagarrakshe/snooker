@@ -1,7 +1,7 @@
 /*******************************************************************************************************************
  * Author: Sagar Rakshe 
  * Date: 
- * Problem Statement: 
+ * Problem Statement: Setting Region of Interest in the image(ROI).
 *******************************************************************************************************************/
 
 #include <cstdio>
@@ -17,15 +17,15 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    Mat source, dest;
+    IplImage *src;
 
-    source = imread(argv[1]);
+    src = cvLoadImage(argv[1]);
+    cvSetImageROI(src, cvRect(150,150,100,100))  ;
+    cvAddS(src, cvScalar(25,2,255), src);
+    cvResetImageROI(src);
     
-    // resize(source, dest, Size(), 2, 2, CV_INTER_LINEAR);
-    // imwrite("newImage.png", dest);
-
-    namedWindow("Testing Window", CV_WINDOW_AUTOSIZE);
-    imshow("Testing Window", source);
+    namedWindow("Testing Window", 1);
+    cvShowImage("Testing Window", src);
     waitKey(0);
 
 	return 0;
