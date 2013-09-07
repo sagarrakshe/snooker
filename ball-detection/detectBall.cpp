@@ -1,9 +1,4 @@
-
-/*
- *@author: Nisarg Patel
- *Date: 16/08/2013
- */
-
+// This is the program to detect the ball from the given image
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -27,7 +22,7 @@ int main(int argc, char **argv){
     src = imread(argv[1]);
 
     /*Up-sampling(exapanding) the image - Laplacian Pyramid*/
-    //pyrUp(src, src);
+    pyrUp(src, src);
 
     /*Converts an image from one color space to another*/
     cvtColor(src, src_gray, CV_BGR2HSV);
@@ -46,49 +41,50 @@ int main(int argc, char **argv){
     */
 
     /*Blue ball detection*/
+    /*
     inRange(src_gray, Scalar(120,0,0),
             Scalar(130,255,255), processed);
     Canny(processed, blueBall, 100, 100*3,5);
-    
-    /*Pink ball detection*/
+    */
+    /*Pink ball detection
     inRange(src_gray, Scalar( 155,0,0),
             Scalar(165,255,255), processed);
     Canny(processed, pinkBall, 100, 100*3,5);
     bitwise_or(pinkBall, blueBall, temp);
-    
-    /*White ball detection*/
+    */
+    /*White ball detection
     inRange(src_gray, Scalar(0,0,200),
             Scalar(255,50,255), processed);
     Canny(processed, whiteBall, 100, 100*3,5);
     bitwise_or(temp, whiteBall, temp);
     
-    /*Red ball detection*/
+    Red ball detection
     inRange(src_gray, Scalar(0,150,150),
             Scalar(10,255,255), processed);
     Canny(processed, redBall, 100, 100*3,5);
     bitwise_or(temp, redBall, temp);
-    
-    /*Black ball detection*/
+    */
+    //Black ball detection
     inRange(src_gray, Scalar(0,0,0),
             Scalar(255,255,50), processed);
     Canny(processed, blackBall, 100, 100*3,5);
-    bitwise_or(temp, blackBall, temp);
-    
-    /*Yellow ball detection*/
+    // bitwise_or(temp, blackBall, temp);
+    /*
+    Yellow ball detection
     inRange(src_gray, Scalar(25,150,140),
             Scalar(35,255,255), processed);
     Canny(processed, yellowBall, 100, 100*3,5);
     bitwise_or(temp, yellowBall, temp);
     
-    /*Brown ball detection*/
+    Brown ball detection
     inRange(src_gray, Scalar(10,160,140),
             Scalar(20,220,200), processed);
     Canny(processed, brownBall, 100, 100*3,5);
     bitwise_or(temp, brownBall, processed);
-    
+    */
     vector<Vec3f> circles;
     
-    HoughCircles(processed,circles, CV_HOUGH_GRADIENT,1,src_gray.rows/64,10,15,5,20);
+    HoughCircles(blackBall,circles, CV_HOUGH_GRADIENT,1,src_gray.rows/64,10,15,5,20);
     
     for( size_t i = 0; i < circles.size(); i++ ) {
         Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
