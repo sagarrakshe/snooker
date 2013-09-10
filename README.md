@@ -15,4 +15,4 @@ To compile the code you can use either `cmake` or `compile-opencv` file.
     testing/compile-opencv foo.cpp
     ./a.out
 
-*media* directory contains the images/videos
+`media` directory contains the images/videos
