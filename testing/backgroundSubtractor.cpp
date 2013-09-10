@@ -17,29 +17,31 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    string filename = "../media/video.avi";
-    VideoCapture capture(filename);
+    // IplImage *src;
+    IplImage *frame1, *frame2, *foregroundFrame;
 
-    Mat frame;
-    if(!capture.isOpened()){
-        fprintf(stderr,"Error: opening video");
-        exit(EXIT_FAILURE);
-    }
-    namedWindow("Testing Window", 1);
+    // src = cvLoadImage(argv[1]);
+    // cvSetImageROI(src, cvRect(150,150,100,100))  ;
+    // cvAddS(src, cvScalar(255), src);
+    // cvResetImageROI(src);
     
-    while(1){
-        if(!capture.read(frame)){
-            break;
-        }
-        Mat subImage = frame(cvRect(150,150,200,200));
-        imshow("Testing Window", subImage);
-        char key = waitKey(30);
-        if(key==27){
-            break;
-        }
-    }
+    // namedWindow("Testing Window", 1);
+    // cvShowImage("Testing Window", src);
 
-    cvDestroyWindow("Testing Window");
+    frame1 = cvLoadImage(argv[1]);
+    frame2 = cvLoadImage(argv[2]);
+    
+    cvAbsDiff(frame1, frame2, foregroundFrame);
+
+    cvThreshold(
+            foregroundFrame,
+            foregroundFrame,
+            15,
+            255,
+            CV_THRESH_BINARY
+            );
+    
+    waitKey(0);
 
 	return 0;
 }
