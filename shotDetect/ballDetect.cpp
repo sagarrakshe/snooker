@@ -39,11 +39,9 @@ void onMouseClick(int event,int x,int y,int flags, void* userdata)
         if((x>=68+7 && x<=1091-7) && (y>=73+7 && y<=603-7)){
             white_collide.x = x;
             white_collide.y = y;
+            setMouseCallback("source", NULL,NULL);
         }
     }		 
-
-    else if  (event == EVENT_RBUTTONDOWN)
-        setMouseCallback("source", NULL,NULL);
 }
 
 void ballDetect ::  drawObject(int x,  int y, Mat &frame){

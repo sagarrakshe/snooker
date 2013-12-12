@@ -4,13 +4,13 @@
 objects = snooker.o ballDetect.o
 
 shotDetect : $(objects)
-	g++ -o shotDetect $(objects) `pkg-config opencv --libs` -std=gnu++11
+	g++ -o shotDetect $(objects) `pkg-config opencv --libs` 
 
 snooker.o : snooker.cpp ballDetect.h
 	g++ -c snooker.cpp
 
 ballDetect.o : ballDetect.cpp ballDetect.h
-	g++ -c ballDetect.cpp -std=gnu++11
+	g++ -c ballDetect.cpp 
 
 clean:
 	rm $(objects)
