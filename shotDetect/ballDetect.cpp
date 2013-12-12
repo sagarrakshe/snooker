@@ -141,12 +141,13 @@ void ballDetect :: initDetect(char *videoInput){
 
     VideoCapture capture;
     Mat src, src_HSV, processed;
-    int x=0; int y=0; 
+    // int x=0; int y=0; 
 
     Mat currentFrame, back, fore;   
     BackgroundSubtractorMOG2 bg;
 
-    std::vector<std::vector<cv::Point> > contours;
+    vector<vector<Point> > contours;
+    vector<Vec3f> circles;
 
     capture.open(videoInput);
     capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
@@ -175,8 +176,20 @@ void ballDetect :: initDetect(char *videoInput){
         }
 
         inRange(src_HSV, *minval, *maxval, processed);
+        imshow("processed", processed);
         morphOps(processed);
-        trackFilteredObject(x, y, processed, src);
+
+        // trackFilteredObject(x, y, processed, src);
+        HoughCircles(processed,circles, CV_HOUGH_GRADIENT,1,8,20,12,5,40);
+
+        for( size_t i = 0; i < circles.size(); i++ )
+        {
+            Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
+            // int radius = cvRound(circles[i][2]);
+            cout<<circles.size()<<endl;
+            drawObject(cvRound(circles[i][0]), cvRound(circles[i][1]), src);
+        }
+
 
         for(int i=0;i<(int)white_position.size()-1;++i){
             line(src, white_position[i], white_position[i+1], Scalar(255, 255, 255), 1, CV_AA); 
