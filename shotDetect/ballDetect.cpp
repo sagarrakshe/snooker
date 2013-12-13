@@ -2,7 +2,6 @@
 
 Point white_initial, white_collide;
 vector <Point> white_position;
-// int white_flag=0;
 
 ballDetect :: ballDetect(){
 
@@ -33,8 +32,7 @@ void onMouseClick(int event,int x,int y,int flags, void* userdata)
     Mat img = *((Mat *)userdata);
     flags = 0;
 
-    if(event == EVENT_LBUTTONDOWN)
-    {
+    if(event == EVENT_LBUTTONDOWN) {
         // cout<<x<<" "<<y<<endl;
         if((x>=68+7 && x<=1091-7) && (y>=73+7 && y<=603-7)){
             white_collide.x = x;
@@ -44,19 +42,20 @@ void onMouseClick(int event,int x,int y,int flags, void* userdata)
     }		 
 }
 
+int getDistance(Point p1, Point p2){
+    return sqrt(pow((p1.x-p2.x),2)+pow((p1.y-p2.y),2));
+}
+
 void ballDetect ::  drawObject(int x,  int y, Mat &frame){
 
     circle(frame, Point(x, y), 7, Scalar(0, 0, 0), 2);
 
     putText(frame, "Shot No. "+intToString(shot), Point(90, 40), 1, 1, Scalar(255, 0, 0), 2);
     putText(frame, "White", Point(x, y-5), 1, 1, Scalar(255, 255, 0), 1);
-
-    // if(white_flag)
-        white_position.push_back(Point(x,y));
+    
+    white_position.push_back(Point(x,y));
 
     if((abs(x-xPrev)) && (abs(y-yPrev)) && !flag){
-        // if(shotTemp>=10)
-            // white_flag=1;
         if(shotTemp>20){
             flag=shotStart=1;
         }
@@ -78,7 +77,6 @@ void ballDetect ::  drawObject(int x,  int y, Mat &frame){
             //     line(frame, white_position[i], white_position[i+1], Scalar(255, 255, 255), 1, CV_AA); 
             // }
             white_position.clear();
-            // white_flag=0;
         }
         else
             contourTemp++;
@@ -119,7 +117,7 @@ void ballDetect :: trackFilteredObject(int &x, int &y, Mat threshold, Mat &camer
         if(numObjects<MAX_NUM_OBJECTS){
             for (int index = 0; index >= 0; index = hierarchy[index][0]) {
 
-                Moments moment = moments((cv::Mat)contours[index]);
+                Moments moment = moments((Mat)contours[index]);
                 double area = moment.m00;
 
                 if(area>MIN_OBJECT_AREA && area<MAX_OBJECT_AREA && area>refArea){
@@ -141,13 +139,12 @@ void ballDetect :: initDetect(char *videoInput){
 
     VideoCapture capture;
     Mat src, src_HSV, processed;
-    // int x=0; int y=0; 
+    int x=0; int y=0; 
 
     Mat currentFrame, back, fore;   
     BackgroundSubtractorMOG2 bg;
 
     vector<vector<Point> > contours;
-    vector<Vec3f> circles;
 
     capture.open(videoInput);
     capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
@@ -176,29 +173,20 @@ void ballDetect :: initDetect(char *videoInput){
         }
 
         inRange(src_HSV, *minval, *maxval, processed);
-        imshow("processed", processed);
         morphOps(processed);
 
-        // trackFilteredObject(x, y, processed, src);
-        HoughCircles(processed,circles, CV_HOUGH_GRADIENT,1,8,20,12,5,40);
-
-        for( size_t i = 0; i < circles.size(); i++ )
-        {
-            Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
-            // int radius = cvRound(circles[i][2]);
-            cout<<circles.size()<<endl;
-            drawObject(cvRound(circles[i][0]), cvRound(circles[i][1]), src);
-        }
-
+        trackFilteredObject(x, y, processed, src);
 
         for(int i=0;i<(int)white_position.size()-1;++i){
-            line(src, white_position[i], white_position[i+1], Scalar(255, 255, 255), 1, CV_AA); 
+            line(src, white_position[i], white_position[i+1], Scalar(255, 0, 255), 1, CV_AA); 
+            circle(src, white_position[i], 1, Scalar(255, 0, 0), 1);
         }
+
         while(white_collide.x == -1 && white_collide.y==-1){
-            setMouseCallback("source", onMouseClick, &src);
             putText(src, "Specify Point", Point(750, 40), 1, 1, Scalar(255, 0, 0), 2);
             imshow("source", src);
             waitKey(5);
+            setMouseCallback("source", onMouseClick, &src);
         }
 
         imshow("source", src);
