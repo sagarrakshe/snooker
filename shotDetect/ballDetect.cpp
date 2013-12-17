@@ -51,12 +51,12 @@ void ballDetect ::  drawObject(int x,  int y, Mat &frame){
     circle(frame, Point(x, y), 7, Scalar(0, 0, 0), 2);
 
     putText(frame, "Shot No. "+intToString(shot), Point(90, 40), 1, 1, Scalar(255, 0, 0), 2);
-    putText(frame, "White", Point(x, y-5), 1, 1, Scalar(255, 255, 0), 1);
+    // putText(frame, "White", Point(x, y-5), 1, 1, Scalar(255, 255, 0), 1);
     
     white_position.push_back(Point(x,y));
 
     if((abs(x-xPrev)) && (abs(y-yPrev)) && !flag){
-        if(shotTemp>20){
+        if(shotTemp>5){
             flag=shotStart=1;
         }
         else
@@ -72,7 +72,7 @@ void ballDetect ::  drawObject(int x,  int y, Mat &frame){
             white_collide.x = white_collide.y = -1;
             white_initial.x =x;
             white_initial.y =y;
-            cout<<"No. of points"<<white_position.size()<<endl;
+            // cout<<"No. of points"<<white_position.size()<<endl;
             // for(int i=0;i<(int)white_position.size()-1;++i){
             //     line(frame, white_position[i], white_position[i+1], Scalar(255, 255, 255), 1, CV_AA); 
             // }
@@ -102,11 +102,13 @@ void ballDetect :: trackFilteredObject(int &x, int &y, Mat threshold, Mat &camer
 
     Mat temp;
     threshold.copyTo(temp);
+    // int ballCount=0;
 
-    vector< vector<Point> > contours;
+    vector< vector<Point> > ball_contours;
     vector<Vec4i> hierarchy;
 
-    findContours(temp, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
+    findContours(temp, ball_contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
+    // ballCount = ball_contours.size();
 
     double refArea = 0;
     bool objectFound = false;
@@ -115,22 +117,24 @@ void ballDetect :: trackFilteredObject(int &x, int &y, Mat threshold, Mat &camer
         int numObjects = hierarchy.size();
 
         if(numObjects<MAX_NUM_OBJECTS){
-            for (int index = 0; index >= 0; index = hierarchy[index][0]) {
 
-                Moments moment = moments((Mat)contours[index]);
+            for (int index = 0; index >= 0; index = hierarchy[index][0]) {
+                
+                Moments moment = moments((Mat)ball_contours[index]);
                 double area = moment.m00;
 
                 if(area>MIN_OBJECT_AREA && area<MAX_OBJECT_AREA && area>refArea){
                     x = moment.m10/area;
                     y = moment.m01/area;
                     objectFound = true;
+                }
 
-                }else objectFound = false;
+                else
+                    objectFound = false;
             }
 
-            if(objectFound ==true){
+            if(objectFound == true)
                 drawObject(x, y, cameraFeed);
-            }
         }
     }
 }
@@ -163,13 +167,13 @@ void ballDetect :: initDetect(char *videoInput){
         erode(fore, fore, Mat());
         dilate(fore, fore, Mat());
         findContours(fore, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
-        // drawContours(src,  contours,  -1,  Scalar(0,  0,  255),  2);
+        drawContours(src,  contours,  -1,  Scalar(0,  0,  255),  2);
         contourCount=contours.size();
 
         if(white_collide.x != -1 && white_collide.y!=-1){
             circle(src, white_collide, 2, Scalar(0, 0, 0), 2);
             circle(src, white_initial, 2, Scalar(0, 0, 0), 2);
-            line(src, white_initial, white_collide, Scalar(255, 255, 255), 1, CV_AA);
+            line(src, white_initial, white_collide, Scalar(0, 0, 255), 1, CV_AA);
         }
 
         inRange(src_HSV, *minval, *maxval, processed);
@@ -178,8 +182,8 @@ void ballDetect :: initDetect(char *videoInput){
         trackFilteredObject(x, y, processed, src);
 
         for(int i=0;i<(int)white_position.size()-1;++i){
-            line(src, white_position[i], white_position[i+1], Scalar(255, 0, 255), 1, CV_AA); 
-            circle(src, white_position[i], 1, Scalar(255, 0, 0), 1);
+            line(src, white_position[i], white_position[i+1], Scalar(255, 255, 255), 1, CV_AA); 
+            circle(src, white_position[i], 1, Scalar(255, 0, 0), 2);
         }
 
         while(white_collide.x == -1 && white_collide.y==-1){
